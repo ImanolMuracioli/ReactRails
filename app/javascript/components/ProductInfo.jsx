@@ -18,7 +18,7 @@ class ProductInfo extends Component {
   }
 
   handleDelete() {
-    fetch(`api/v1/products/{this.props.match.params.id}`, {method: 'DELETE'})
+    fetch(`api/v1/products/${this.props.match.params.id}`, {method: 'DELETE'})
       .then(() => {
         this.props.history.push("/products")
       })
