@@ -48,6 +48,7 @@ class ProductEdit extends Component {
       
       <div>
         { console.log('Estamos en el edit')} 
+        { console.log(this)} 
         <h1>Edit {this.state.name}</h1>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">

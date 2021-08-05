@@ -65,8 +65,8 @@ export default function RecipeReviewCard(props) {
       />
       <CardMedia
         className={classes.media}
-        image="/static/images/cards/paella.jpg"
-        title="Paella dish"
+        image={props.image}
+        title={props.name}
       />
      
       <CardActions disableSpacing>
