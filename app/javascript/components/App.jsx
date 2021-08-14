@@ -28,7 +28,7 @@ const Navigation = () => (
   <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
     <ul className="navbar-nav mr-auto">
       <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/">Home</NavLink></li>
-      <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/products">Products</NavLink></li>
+      <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/products">Productos</NavLink></li>
       <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/prueba">Prueba</NavLink></li>
     </ul>
   </nav>

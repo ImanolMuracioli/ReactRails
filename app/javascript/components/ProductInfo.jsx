@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import CardMedia from '@material-ui/core/CardMedia';
 import xtype from 'xtypejs';
+import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import NumberFormat from 'react-number-format';
+import Button from '@material-ui/core/Button';
 
 class ProductInfo extends Component {
 
@@ -32,29 +37,31 @@ class ProductInfo extends Component {
       .catch(error => console.log('error', error));
   }
 
+
+
+
+
   render() {
     let imagen;
     { console.log("prod")} 
     const prod = (JSON.parse(JSON.stringify(this.state.product)))
     const url_image = ''
+
+    let theme = createTheme();
+    theme = responsiveFontSizes(theme);
     
 
     if (prod.id !== undefined )
     {
       
-       {/*imagen = <img src={JSON.stringify(prod.image_product.url)} alt={prod.name} > </img>  */}     
       const url_image = JSON.stringify(prod.image_product.url)
-
-      imagen = "http://localhost:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--3f24ce01385eb070514fe1bcf226b7ea4c92de05/Lavarropa.jpg" 
-
-      {/*
-       imagen = <CardMedia
-      image= "http://localhost:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--3f24ce01385eb070514fe1bcf226b7ea4c92de05/Lavarropa.jpg"
+      
+      imagen = <CardMedia style={{height: '200px',width: '200px' }}
+      image= {url_image.replace(/"/g,"")} /* Se hace un replace para quitar las comillas dobles */
       title={this.state.product.name}
       />
-      */} 
-
-      { console.log(imagen)} 
+      
+      
     } else {
       { console.log("URL vacía")} 
       imagen = ""
@@ -62,23 +69,33 @@ class ProductInfo extends Component {
    
     return (
       <div>
-        
+        <br/>
         { console.log('Estamos en el show')} 
         {console.log((JSON.parse(JSON.stringify(this.state.product))))}
         
-        <h2> {this.state.product.name}</h2>
-        <p>{this.state.product.price}</p>
-        
+        <ThemeProvider theme={theme}>
+          <Typography variant="h5">{this.state.product.name}</Typography>
+          <Typography variant="h6">
+
+          <NumberFormat displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} prefix={'$'} value={this.state.product.price} />  
+          </Typography>
+        </ThemeProvider>
        
        {/*Esto debe ir sin el cierre </img>, porque arroja un puto error. Solo se cierra usando />*/} 
-        <img src={imagen} alt={this.state.product.name} />
-       
+       {/*<img src={imagen} alt={this.state.product.name} width='400px' />*/}
 
-        {/* <img src={this.state.product.image_product.url} alt={this.state.product.name} > </img> */}
+
+       {imagen}
+       
         <p>
-          <Link to={`/products/${this.state.product.id}/edit`} className="btn btn-outline-dark">Edit</Link> 
-          <button onClick={this.handleDelete} className="btn btn-outline-dark">Delete</button> 
-          <Link to="/products" className="btn btn-outline-dark">Close</Link>
+
+          <Button variant="contained" size="small" color="primary" style={{margin: theme.spacing(1)}}>
+          Small
+        </Button>
+
+          <Link to={`/products/${this.state.product.id}/edit`} variant="contained" size="small" color="primary"  className="btn btn-outline-dark">Editar</Link> 
+          <button onClick={this.handleDelete} className="btn btn-outline-dark">Eliminar</button> 
+          <Link to="/products" className="btn btn-outline-dark">Atrás</Link>
         </p>
         <hr/>
       </div>

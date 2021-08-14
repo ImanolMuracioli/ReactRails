@@ -106,18 +106,21 @@ class ProductAdd extends Component {
   render() {
     return (
         <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
+          <div className="form-group" style={{height: "50px",width: "200px", }}> 
             <label>Nombre</label>
             <input type="text" name="name" value={this.state.name} onChange={this.handleChange} className="form-control" />
           </div>
-          <div className="form-group">
+          <div className="form-group" style={{height: "50px",width: "200px", }}>
             <label>Precio</label>
             <textarea name="price" rows="5" value={this.state.price} onChange={this.handleChange} className="form-control" />
           </div>
+          <br/><br/><br/>
+          <br/>
+          <br/>
 
           <input type="file" accept="image/*" multiple={false} onChange={this.onImageChange} />
 
-          <div className="btn-group">
+          <div className="btn-group" style={{height: "30px",width: "200px", }}>
             <button type="submit" className="btn btn-dark">Create</button>
             <Link to={`/products`} className="btn btn-outline-dark">Cancel</Link> 
           </div>

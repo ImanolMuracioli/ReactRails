@@ -15,6 +15,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import NumberFormat from 'react-number-format';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,7 +50,7 @@ export default function RecipeReviewCard(props) {
   };
 
   return (
-    <Card className={classes.root} style={{height: "200px",width: "150px", }} >
+    <Card className={classes.root} style={{height: "300px",width: "200px", }} >
       <CardHeader 
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
@@ -61,7 +63,7 @@ export default function RecipeReviewCard(props) {
           </IconButton>
         }
         title={props.name}
-        subheader={props.price}
+        subheader={ <NumberFormat displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} prefix={'$'} value={props.price} />}
       />
       <CardMedia
         className={classes.media}
