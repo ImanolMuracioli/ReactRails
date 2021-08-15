@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import CardMedia from '@material-ui/core/CardMedia';
 
 class ProductEdit extends Component {
   constructor() {
@@ -19,17 +20,21 @@ class ProductEdit extends Component {
       .catch(error => console.log('error', error));
   }
 
+  onImageChange = event => { 
+    this.setState({ image_product: event.target.files[0] });
+  };
+
   handleSubmit(event) {
-    { console.log('Edita')} 
     event.preventDefault();
+    const formData = new FormData();
+    formData.append('name', this.state.name);
+    formData.append('price', this.state.price);
+    formData.append('image_product', this.state.image_product);
+    console.log(this.state)
+
     fetch(`api/v1/products/${this.props.match.params.id}`, {
-        method: 'PATCH',
-        body: JSON.stringify(this.state),   
-        headers: { 'Content-Type': 'application/json' }
-      })
-      .then(response => response.json())
-      .then(data => {
-        this.props.history.push(`api/v1//products/${this.state.id}`);
+        method: 'PATCH',        
+        body: formData
       })
       .catch(error => console.log('error', error));
   }
@@ -43,8 +48,28 @@ class ProductEdit extends Component {
     this.props.history.push(`api/v1//products/${this.state.id}`);
   }
 
+
+
   render() {
+    let imagen;
+
+    { console.log("state")}
+    { console.log(this.state)}
+    { console.log("prod")}
+    { console.log(this.state.price)}
+
+    const prod = (JSON.parse(JSON.stringify(this.state)))
+
+    { console.log("paso")}
+
+
+    if (prod.id !== undefined )
+    {
+    }
+
     return (
+
+
       
       <div>
         { console.log('Estamos en el edit')} 
@@ -59,6 +84,11 @@ class ProductEdit extends Component {
             <label>Precio</label>
             <textarea name="price" rows="5" value={this.state.price} onChange={this.handleChange} className="form-control" />
           </div>
+
+          <div>
+          {imagen} <input type="file" accept="image/*" multiple={false} onChange={this.onImageChange} />
+          </div>
+
           <div className="btn-group">
             <button type="submit" onChange={this.handleSubmit} className="btn btn-dark">Modificar</button>
             <Link to={`/products/${this.state.id}`} className="btn btn-outline-dark">Cancel</Link> 

@@ -68,7 +68,8 @@ class ProductInfo extends Component {
     }
    
     return (
-      <div>
+      <div width = '100px'>
+        <br/>
         <br/>
         { console.log('Estamos en el show')} 
         {console.log((JSON.parse(JSON.stringify(this.state.product))))}
@@ -84,18 +85,29 @@ class ProductInfo extends Component {
        {/*Esto debe ir sin el cierre </img>, porque arroja un puto error. Solo se cierra usando />*/} 
        {/*<img src={imagen} alt={this.state.product.name} width='400px' />*/}
 
+       <br/>
+       <br/>
 
        {imagen}
+
+       <br/>
+       <br/>
        
         <p>
 
-          <Button variant="contained" size="small" color="primary" style={{margin: theme.spacing(1)}}>
-          Small
+        <Button component={Link} to={`/products/${this.state.product.id}/edit`} variant="contained" size="small" color="primary" style={{margin: theme.spacing(1)}}>
+          Editar
         </Button>
 
-          <Link to={`/products/${this.state.product.id}/edit`} variant="contained" size="small" color="primary"  className="btn btn-outline-dark">Editar</Link> 
-          <button onClick={this.handleDelete} className="btn btn-outline-dark">Eliminar</button> 
-          <Link to="/products" className="btn btn-outline-dark">Atrás</Link>
+        <Button onClick={this.handleDelete} variant="contained" size="small" color="primary" style={{margin: theme.spacing(1)}}>
+          Eliminar
+        </Button>
+
+        <Button component={Link} to="/products" variant="contained" size="small" color="primary" style={{margin: theme.spacing(1)}}>
+          Atrás
+        </Button>
+
+
         </p>
         <hr/>
       </div>

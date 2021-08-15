@@ -73,7 +73,7 @@ class ProductList extends Component {
                   { console.log(`api/v1/products/${product.id}`)}  */} 
 
                       <Link to={`/products/${product.id}`} style={{ textDecoration: 'none', color: 'white' }} >
-                        <Grid item xs={12} sm={12} style={{height: "300px",width: "250px", }}  >
+                        <Grid item xs={12}   sm={12} style={{height: "300px",width: "250px", }}  >
                         {console.log('URL:')}
                             {console.log(product)}
                             

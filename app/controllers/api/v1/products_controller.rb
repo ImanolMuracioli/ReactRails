@@ -22,7 +22,6 @@ class Api::V1::ProductsController < ApplicationController
 
   def update
     @product = Product.find(params[:id])
-    raise params.inspect
     if @product.update(product_params)
       render json: @product, status: :ok
     else
@@ -40,7 +39,8 @@ class Api::V1::ProductsController < ApplicationController
   private
 
   def product_params
-    params.permit(:name, :price,:image_product)
+    params.permit(:id,:name, :price,:image_product)
+
   end
 end
 
