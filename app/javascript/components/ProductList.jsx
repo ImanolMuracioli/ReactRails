@@ -52,12 +52,10 @@ class ProductList extends Component {
       <div>
         <br/>
         
-    
-        <Link to="/products/new" className="btn btn-outline-primary">Create Product</Link> 
+        <div style={{ display: "flex" }} > 
+          <Link style={{ marginLeft: "auto" }} to="/products/new" className="btn btn-outline-primary">Crear producto</Link> 
+        </div>
 
-        <br/>
-        <br/>
-        <br/>
 
         <Grid container
         direction="row"
@@ -68,12 +66,12 @@ class ProductList extends Component {
             {this.state.products.map((product) => {
               return(
                 
-                <div key={product.id} > 
+                <div key={product.id} style={{paddingTop: "10px"}}> 
                   {/* { console.log('console')} 
                   { console.log(`api/v1/products/${product.id}`)}  */} 
 
                       <Link to={`/products/${product.id}`} style={{ textDecoration: 'none', color: 'white' }} >
-                        <Grid item xs={12}   sm={12} style={{height: "300px",width: "250px", }}  >
+                        <Grid item xs={12}   sm={12} style={{height: "300px",width: "250px", paddingTop:"20px"}}  >
                         {console.log('URL:')}
                             {console.log(product)}
                             

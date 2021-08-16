@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 
 class ProductAdd extends Component {
   constructor() {
     
 
     super();
-    this.state = { name: '', price: '', image_product: null};
+    this.state = { name: '', price: '', offer: '', image_product: null};
     this.onImageChange = this.onImageChange.bind(this);
     this.handleChange = this.handleChange.bind(this);    
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,6 +38,7 @@ class ProductAdd extends Component {
     const formData = new FormData();
     formData.append('name', this.state.name);
     formData.append('price', this.state.price);
+    formData.append('offer', this.state.offer);
     formData.append('image_product', this.state.image_product);
     console.log(this.state.image_product)
     fetch('api/v1/products', {
@@ -104,25 +108,37 @@ class ProductAdd extends Component {
   };
 
   render() {
+    let theme = createTheme();
+    theme = responsiveFontSizes(theme);
     return (
         <form onSubmit={this.handleSubmit}>
-          <div className="form-group" style={{height: "50px",width: "200px", }}> 
+          <div className="form-group" style={{paddingTop: '10px', height: "50px",width: "300px", }}> 
             <label>Nombre</label>
-            <input type="text" name="name" value={this.state.name} onChange={this.handleChange} className="form-control" />
+            <input type="text" name="name" placeholder="Ingrese el nombre" value={this.state.name} onChange={this.handleChange} className="form-control" />
           </div>
-          <div className="form-group" style={{height: "50px",width: "200px", }}>
+          <div className="form-group" style={{paddingTop: '20px', height: "50px",width: "200px", }}>
             <label>Precio</label>
-            <textarea name="price" rows="5" value={this.state.price} onChange={this.handleChange} className="form-control" />
+            <input type="text" name="price" placeholder="Ingrese el precio"   value={this.state.price} onChange={this.handleChange} className="form-control" />
           </div>
-          <br/><br/><br/>
-          <br/>
+          <div className="form-group" style={{paddingTop: '30px', height: "50px",width: "200px", }}>
+            <label>Oferta</label>
+            <input type="text" name="offer"  placeholder="Ingrese de descuento"  value={this.state.offer} onChange={this.handleChange} className="form-control" />
+          </div>
           <br/>
 
+          <div style={{paddingTop: '20px'}}>
           <input type="file" accept="image/*" multiple={false} onChange={this.onImageChange} />
+          </div>
+          <div className="btn-group" style={{height: "50px",width: "200px", }}>
 
-          <div className="btn-group" style={{height: "30px",width: "200px", }}>
-            <button type="submit" className="btn btn-dark">Create</button>
-            <Link to={`/products`} className="btn btn-outline-dark">Cancel</Link> 
+            <Button type="submit" variant="contained" size="small" color="primary" style={{margin: theme.spacing(1)}}>
+              Crear
+            </Button>
+
+          <Button component={Link} to="/products" variant="contained" size="small" color="primary" style={{margin: theme.spacing(1)}}>
+            Atrás
+          </Button>
+
           </div>
         </form>
     );

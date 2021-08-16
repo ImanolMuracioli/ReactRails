@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
   },
+  titlehader: {    /*Le da el largo a la cadena de texto*/
+    maxWidth: 200,  
+  },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
@@ -50,19 +53,17 @@ export default function RecipeReviewCard(props) {
   };
 
   return (
-    <Card className={classes.root} style={{height: "300px",width: "200px", }} >
-      <CardHeader 
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={props.name}
+    <Card className={classes.root} style={{paddingTop: "0px", height: "300px",width: "200px", }} >
+      <CardHeader className={classes.titlehader}
+      
+
+    title={
+        <Typography gutterBottom variant="p" component="p">
+           {props.name}
+        </Typography>
+     } 
+      
+        
         subheader={ <NumberFormat displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} prefix={'$'} value={props.price} />}
       />
       <CardMedia
