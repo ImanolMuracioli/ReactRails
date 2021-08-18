@@ -2,7 +2,7 @@ class ProductSerializer < ActiveModel::Serializer
   
 
   include Rails.application.routes.url_helpers
-  attributes :id, :name, :price, :image_product
+  attributes :id, :name, :price, :image_product,:offer
   def image_product
     if object.image_product.attached?
       {

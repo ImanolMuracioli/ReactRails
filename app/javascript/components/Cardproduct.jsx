@@ -52,19 +52,33 @@ export default function RecipeReviewCard(props) {
     setExpanded(!expanded);
   };
 
+  let existantoffer = '' 
+  let originalprice = '' 
+  let offerprice = ''
+  let calculatedprice = null
+
+  if (props.offer) {
+    calculatedprice = ((props.offer * props.price) / 10000).toFixed(2)
+    existantoffer = <p style= {{ fontSize:'15px', color:'#3EAB2D'}}>%{props.offer} </p>
+    originalprice = <NumberFormat style={{textDecoration:'line-through'}} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} prefix={'$'} value={props.price} />
+    offerprice = <NumberFormat displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} prefix={'$'} value={calculatedprice} />
+  }else{
+    originalprice = <NumberFormat displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} prefix={'$'} value={props.price} />
+  }
+
   return (
     <Card className={classes.root} style={{paddingTop: "0px", height: "300px",width: "200px", }} >
       <CardHeader className={classes.titlehader}
       
 
-    title={
-        <Typography gutterBottom variant="p" component="p">
-           {props.name}
-        </Typography>
-     } 
+        title={
+            <Typography gutterBottom variant="subtitle2" component="p">
+              {props.name}
+            </Typography>
+        }   
       
         
-        subheader={ <NumberFormat displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} prefix={'$'} value={props.price} />}
+        subheader={ <div style={{fontSize:'15px', display: 'flex', justifyContent: 'space-between'}}>{originalprice}{offerprice}{existantoffer}</div>} 
       />
       <CardMedia
         className={classes.media}

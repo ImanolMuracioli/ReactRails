@@ -3,17 +3,20 @@ import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 class ProductAdd extends Component {
   constructor() {
     
 
     super();
-    this.state = { name: '', price: '', offer: '', image_product: null};
+    this.state = { name: '', price: '', offer: '', image_product: null, offer: null,checked: false};
     this.onImageChange = this.onImageChange.bind(this);
     this.handleChange = this.handleChange.bind(this);    
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.handleChangeCh = this.handleChangeCh.bind(this);
 
     
   }
@@ -46,6 +49,13 @@ class ProductAdd extends Component {
       body: formData
     })
     .catch(error=>console.log(error));
+  }
+
+
+  handleChangeCh() {
+    this.setState({
+      checked: !this.state.checked
+    })
   }
 
   /*
@@ -107,7 +117,22 @@ class ProductAdd extends Component {
     this.setState({ image_product: event.target.files[0] });
   };
 
-  render() {
+  
+
+
+
+  render() {   
+    
+    const content = this.state.checked 
+      ? <div> <div className="form-group" style={{paddingTop: '0px', height: "50px",width: "200px", }}>
+      <input type="text" name="offer"  placeholder="Ingrese de descuento"  value={this.state.offer} onChange={this.handleChange} className="form-control" />
+    </div>
+    <br/> </div>
+      : null;
+
+
+
+
     let theme = createTheme();
     theme = responsiveFontSizes(theme);
     return (
@@ -120,11 +145,20 @@ class ProductAdd extends Component {
             <label>Precio</label>
             <input type="text" name="price" placeholder="Ingrese el precio"   value={this.state.price} onChange={this.handleChange} className="form-control" />
           </div>
-          <div className="form-group" style={{paddingTop: '30px', height: "50px",width: "200px", }}>
-            <label>Oferta</label>
-            <input type="text" name="offer"  placeholder="Ingrese de descuento"  value={this.state.offer} onChange={this.handleChange} className="form-control" />
-          </div>
-          <br/>
+
+          <div>
+          <p style={{paddingTop: '40px'}} >Oferta</p>      
+
+  
+          <Checkbox style={{paddingTop: '0px'}}
+            name="checkedB"
+            color="primary"
+            checked={ this.state.checked } 
+            onChange={ this.handleChangeCh }
+          /> 
+          </div> 
+
+          { content }
 
           <div style={{paddingTop: '20px'}}>
           <input type="file" accept="image/*" multiple={false} onChange={this.onImageChange} />

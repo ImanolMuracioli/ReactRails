@@ -75,7 +75,7 @@ class ProductList extends Component {
                         {console.log('URL:')}
                             {console.log(product)}
                             
-                            <Cardproduct name= {product.name} price={product.price} image ={product.image_product.url} />
+                            <Cardproduct name= {product.name} price={product.price} image ={product.image_product.url} offer={product.offer} />
                         </Grid>      
                       </Link>  
 

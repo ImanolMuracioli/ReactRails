@@ -39,7 +39,7 @@ class Api::V1::ProductsController < ApplicationController
   private
 
   def product_params
-    params.permit(:id,:name, :price,:image_product)
+    params.permit(:id,:name, :price,:image_product,:offer)
 
   end
 end
