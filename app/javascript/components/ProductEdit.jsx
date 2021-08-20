@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import CardMedia from '@material-ui/core/CardMedia';
 
+window.bandera_imagen = false
+
 class ProductEdit extends Component {
   constructor() {
     super();
@@ -10,6 +12,8 @@ class ProductEdit extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
   }
+
+  
 
   componentDidMount() {
     fetch(`api/v1/products/${this.props.match.params.id}`)
@@ -21,6 +25,7 @@ class ProductEdit extends Component {
   }
 
   onImageChange = event => { 
+    bandera_imagen = true
     this.setState({ image_product: event.target.files[0] });
   };
 
@@ -28,23 +33,36 @@ class ProductEdit extends Component {
     event.preventDefault();
     const formData = new FormData();
     formData.append('name', this.state.name);
-    formData.append('price', this.state.price);
+    formData.append('price', this.state.price);    
     formData.append('image_product', this.state.image_product);
+    console.log("formData")
+
     console.log(this.state)
+    console.log(bandera_imagen)
+    console.log(this.state.image_product)
+    
+
+    console.log("fin edit")
 
     fetch(`api/v1/products/${this.props.match.params.id}`, {
         method: 'PATCH',        
         body: formData
+        
+      })
+      .then(() => {
+
+        this.props.history.replace('',null)
+        this.props.history.replace(`products/${this.props.match.params.id}`)
+        
       })
       .catch(error => console.log('error', error));
   }
 
-  handleChange(event) {
+  handleChange(event) {    
     this.setState({ [event.target.name]: event.target.value });
   }
 
   handleCancel() {
-    { console.log('Para atras')} 
     this.props.history.push(`api/v1//products/${this.state.id}`);
   }
 
@@ -52,28 +70,34 @@ class ProductEdit extends Component {
 
   render() {
     let imagen;
+    let imagen_anterior;
 
-    { console.log("state")}
-    { console.log(this.state)}
-    { console.log("prod")}
-    { console.log(this.state.price)}
+    imagen_anterior = this.state.image
+
 
     const prod = (JSON.parse(JSON.stringify(this.state)))
 
-    { console.log("paso")}
+    if (prod.id !== undefined && bandera_imagen == false)
+    {     
+      
+      
+      const url_image = JSON.stringify(prod.image_product.url)
+      
+      imagen = <CardMedia style={{height: '200px',width: '200px' }}
+      image= {url_image.replace(/"/g,"")} /* Se hace un replace para quitar las comillas dobles */
+      title={this.state.name}
+      />
+      
 
-
-    if (prod.id !== undefined )
-    {
     }
+    else
+    {imagen = ''}
 
     return (
 
 
       
       <div>
-        { console.log('Estamos en el edit')} 
-        { console.log(this)} 
         <h1>Edit {this.state.name}</h1>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
