@@ -31,7 +31,10 @@ class ProductList extends Component {
   constructor() {
     
     super();
-    this.state = { products: [] };
+    this.state = { 
+    busqueda:'',  
+    products: [],  /*Almaceno la informacion de todos los productos*/
+    products_search: []}; /*Almacena la inormación de todos los productos, pero se usa en la busqueda. Por lo tanto se va sobreescribiendo en la busqueda. Sino al borrar queda en la lista solo aquellos que conincidieron en la busqueda anterior*/
   }
 
   componentDidMount() {
@@ -39,9 +42,41 @@ class ProductList extends Component {
       .then(response => response.json())
       .then(data => {
         this.setState({products: data});
+        this.setState({products_search: data})
       })
       .catch(error => console.log('error', error));
   }
+
+  onChange=async e=>{
+    e.persist()
+    
+    await this.setState({busqueda: e.target.value})
+    console.log("State")
+    console.log(this.state)
+    this.filtrarElementos()
+  }
+
+  filtrarElementos=()=>{
+    var search = this.state.products_search.filter(item=>{
+      console.log(item.name.toString())
+      console.log(this.state.busqueda)
+
+      if (this.state.busqueda == ''){
+        return item
+      }else{
+
+        if(item.name.toString().includes(this.state.busqueda)){
+          return item
+        }
+      }
+    }
+    )
+
+    console.log("search")
+    console.log(search)
+    this.setState({products: search})
+  }
+
 
 
 
@@ -51,6 +86,13 @@ class ProductList extends Component {
       
       <div>
         <br/>
+
+        <div>
+          <input type='text' placeholder='Buscar' className='textField' name='busqueda' value={this.state.busqueda} onChange={this.onChange} />
+        </div>
+
+
+
         
         <div style={{ display: "flex" }} > 
           <Link style={{ marginLeft: "auto" }} to="/products/new" className="btn btn-outline-primary">Crear producto</Link> 
