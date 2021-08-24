@@ -7,7 +7,6 @@ import { ThemeProvider } from '@material-ui/core/styles';
 
 window.bandera_imagen = false
 
-
 class ProductEdit extends Component {
   constructor() {
     super();
