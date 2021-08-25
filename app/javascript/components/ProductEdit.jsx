@@ -5,8 +5,6 @@ import Button from '@material-ui/core/Button';
 import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 
-cambio_prueba
-
 window.bandera_imagen = false
 
 class ProductEdit extends Component {
