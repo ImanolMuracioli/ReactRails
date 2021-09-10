@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import jwtDecode from 'jwt-decode';
 
 class PruebaNuevo extends Component {
 
@@ -22,6 +23,16 @@ class PruebaNuevo extends Component {
 
       }
 
+      componentDidMount() {
+      console.log("todo bien")
+      let jwt=window.localStorage.getItem('jwt')
+      try {
+      let result = jwtDecode(jwt)
+      } catch (error) {
+        console.log('Error de autenticación, por favor iniciar sesión')  
+        this.props.history.push('/signin')
+      }
+    }
 
 render() {
   return (

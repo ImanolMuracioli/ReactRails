@@ -17,6 +17,7 @@ class ProductInfo extends Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
 
+  
   componentDidMount() {
     fetch(`api/v1/products/${this.props.match.params.id}`)
       .then(response => response.json())  
@@ -24,6 +25,8 @@ class ProductInfo extends Component {
           this.setState({product: data});
       })
       .catch(error => console.log('error', error));
+
+      console.log(this.state)
 
 
   }

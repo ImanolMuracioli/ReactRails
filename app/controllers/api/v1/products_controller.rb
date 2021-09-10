@@ -1,5 +1,5 @@
 class Api::V1::ProductsController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  #skip_before_action :verify_authenticity_token
 
   def index
     @products = Product.all
@@ -8,6 +8,9 @@ class Api::V1::ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
+    session[:visit_count] ||= 0
+    session[:visit_count] += 0
+    @visit_count = session[:visit_count]
     render json: @product
   end
 
