@@ -40,7 +40,6 @@ class ProductList extends Component {
   
 
   componentDidMount() {
-    console.log("todo bien")
     let jwt=window.localStorage.getItem('jwt')
     try {
     let result = jwtDecode(jwt)
@@ -72,8 +71,6 @@ class ProductList extends Component {
 
   filtrarElementos=()=>{
     var search = this.state.products_search.filter(item=>{
-      console.log(item.name.toString())
-      console.log(this.state.busqueda)
 
       if (this.state.busqueda == ''){
         return item
@@ -130,8 +127,7 @@ class ProductList extends Component {
 
                       <Link to={`/products/${product.id}`} style={{ textDecoration: 'none', color: 'white' }} >
                         <Grid item xs={12}   sm={12} style={{height: "300px",width: "250px", paddingTop:"20px"}}  >
-                        {console.log('URL:')}
-                            {console.log(product)}
+                     
                             
                             <Cardproduct name= {product.name} price={product.price} image ={product.image_product.url} offer={product.offer} />
                         </Grid>      

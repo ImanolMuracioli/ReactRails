@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React, { Component,useEffect } from 'react';
 import Home from './Home';
 import ProductList from './ProductList';
 import ProductAdd from './ProductAdd';
@@ -12,24 +12,36 @@ import SignUp from './SignUp';
 
 import jwtDecode from 'jwt-decode';
 
+console.log('Se renderiza App')
 
 import {HashRouter as Router, Route, NavLink, Switch} from 'react-router-dom'
 let jwt=window.localStorage.getItem('jwt')
+let visibility_log = false
+
+
+try {
 let result = jwtDecode(jwt)
-console.log(result)  
+  visibility_log = true
+} catch (error) {
+}
+
+
 
 class App extends Component {
+  
 
   
   
 
   render() {
+   
+    
     
     return (
       <div className="App">
         <Router>
           <div className="container">
-            <BarraNavegacion path_signin= '/signin' path_signup= '/signup' path={this.props} />
+            <BarraNavegacion path_signin= '/signin' path_signup= '/signup' path={this.props}/>
             <Main />
           </div>
         </Router>

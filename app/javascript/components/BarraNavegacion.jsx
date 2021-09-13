@@ -102,11 +102,45 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+
+
+
+
 export default function PrimarySearchAppBar(props) {
   
-  
+ 
   const history = useHistory();
-  const [state_control, setStateControl] = useState('');
+  const [visibility_control, setVisibilityControl] = useState(false);
+
+  useEffect(() => {
+    visibility_button()
+  })
+
+  const visibility_button = () => {
+    let jwt=window.localStorage.getItem('jwt')
+    let visibility_log = false
+
+
+    try {
+      let result = jwtDecode(jwt)
+      visibility_log = true
+    } catch (error) {
+    }
+    if (visibility_log === true) {
+      console.log("Verdadero")
+      console.log(visibility_log)
+
+      setVisibilityControl('hidden'); // (B)
+    }
+    else{
+      console.log("Falso")
+      console.log(visibility_log)
+      setVisibilityControl('visible'); // (B)
+    }
+    
+  };
+
+ 
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -138,6 +172,8 @@ export default function PrimarySearchAppBar(props) {
     console.log(localStorage)
     localStorage.removeItem('jwt')
     history.push("/signin")
+    visibility_button()
+
     
   }
 
@@ -202,6 +238,7 @@ export default function PrimarySearchAppBar(props) {
   );
 
   
+ let remaining = 0
 
 
   return (
@@ -209,6 +246,7 @@ export default function PrimarySearchAppBar(props) {
     
     
     <div className={classes.grow}>
+    
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -226,20 +264,28 @@ export default function PrimarySearchAppBar(props) {
             <Button color="inherit" className = {classes.buttonfont} >Prueba</Button>
           </Link>
 
-          <Button variant="primary" size="lg" disabled={state_control}>
-          Primary button
-          </Button>
-         
+                 
          
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
 
-          <Link className = {classes.linkbutton} to="/Signup" >
-            <Button color="inherit" className = {classes.buttonfont} >Signup</Button>
+          {console.log('Visibility')}
+          {console.log(visibility_control)}
+          <Link className = {classes.linkbutton} to="/Signup"  style={{visibility: visibility_control}} >
+              <Button color="inherit" className = {classes.buttonfont} >Signup</Button>
           </Link>
-          <Link className = {classes.linkbutton} to="/Signin">
-            <Button color="inherit" className = {classes.buttonfont} >Signin</Button>
-          </Link>
+
+            <Link className = {classes.linkbutton} to="/Signin" style={{visibility: visibility_control}}>
+              <Button color="inherit" className = {classes.buttonfont} >Signin</Button>
+            </Link>
+     
+            <IconButton aria-label="delete" onClick={()=>handleLogout()}>
+                <BlockIcon />
+            </IconButton>
+         
+
+         
+          
 
 
             <IconButton aria-label="show 4 new mails" color="inherit">
@@ -256,9 +302,7 @@ export default function PrimarySearchAppBar(props) {
             </IconButton>
             */}
 
-            <IconButton aria-label="delete" onClick={()=>handleLogout()}>
-                <BlockIcon />
-            </IconButton>
+            
 
           </div>
           <div className={classes.sectionMobile}>
