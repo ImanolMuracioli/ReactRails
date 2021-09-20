@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import BarraNavegacion from './BarraNavegacion'
 
 class SignIn extends Component {
+    constructor(props) {
+        super(props);
+    }
+    
+    
 
     handleSubmit = event => {
         event.preventDefault();
@@ -19,15 +25,19 @@ class SignIn extends Component {
         .then(() => {
             this.props.history.replace('',null) 
             this.props.history.replace(`/products`)
+            console.log("paso por aca")
+            console.log(this.props)
+            logcontrol = true
         })
     }
 
     
 
-    render(){
+    render(){        
         return (
-
+           
             <div>
+                  
                 <form onSubmit= {this.handleSubmit}>
                     <label htmlFor='username'>Nombre de usuario</label> <br/>
                     <input type='username' id='username' name='username' ref={node => {this.inputNode1 = node}} />
@@ -36,7 +46,7 @@ class SignIn extends Component {
                     <input type='username' id='username' name='username' ref={node => {this.inputNode2 = node}}/>
 
                     <input type='submit' value='Sign In'/>
-
+                    
                 </form>
 
 

@@ -22,6 +22,7 @@ import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import PersonIcon from '@material-ui/icons/Person';
 import { useEffect, useState } from "react";
+import GlobalVariable from './GlobalVariable'
  
 
 const useStyles = makeStyles((theme) => ({
@@ -178,7 +179,6 @@ export default function PrimarySearchAppBar(props) {
   }
 
 
-
  
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -195,6 +195,7 @@ export default function PrimarySearchAppBar(props) {
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
+  
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
@@ -243,9 +244,10 @@ export default function PrimarySearchAppBar(props) {
 
   return (
     
-    
+   
     
     <div className={classes.grow}>
+     {console.log("Se renderiza Appbar")}
     
       <AppBar position="static">
         <Toolbar>
@@ -275,6 +277,12 @@ export default function PrimarySearchAppBar(props) {
               <Button color="inherit" className = {classes.buttonfont} >Signup</Button>
           </Link>
 
+            <Link className = {classes.linkbutton} to="/Signin" style={{visibility: visibility_control}}>
+              <Button color="inherit" className = {classes.buttonfont} >Signin</Button>
+            </Link>
+
+            {console.log(props)}
+            {console.log(props.login)}
             <Link className = {classes.linkbutton} to="/Signin" style={{visibility: visibility_control}}>
               <Button color="inherit" className = {classes.buttonfont} >Signin</Button>
             </Link>

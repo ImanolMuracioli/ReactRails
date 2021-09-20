@@ -1,0 +1,1 @@
+global.logcontrol = false
