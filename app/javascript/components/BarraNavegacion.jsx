@@ -113,7 +113,7 @@ export default function PrimarySearchAppBar(props) {
   const history = useHistory();
   const [visibility_control, setVisibilityControl] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => {    
     visibility_button()
   })
 
@@ -144,6 +144,7 @@ export default function PrimarySearchAppBar(props) {
  
 
   const classes = useStyles();
+  
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -248,7 +249,8 @@ export default function PrimarySearchAppBar(props) {
     
     <div className={classes.grow}>
      {console.log("Se renderiza Appbar")}
-    
+     {console.log('logcontrol')}
+     {console.log(logcontrol)}
       <AppBar position="static">
         <Toolbar>
           <IconButton
