@@ -106,7 +106,7 @@ class ProductInfo extends Component {
           Eliminar
         </Button>
 
-        <Button component={Link} to="/products" variant="contained" size="small" color="primary" style={{margin: theme.spacing(1)}}>
+        <Button component={Link} to={`/products`} variant="contained" size="small" color="primary" style={{margin: theme.spacing(1)}}>
           Atrás
         </Button>
 

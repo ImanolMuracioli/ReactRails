@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import BarraNavegacion from './BarraNavegacion'
+import App from './App'
+import ReactDOM from 'react-dom'
+import {Route, Switch} from "react-router-dom";
 
 class SignIn extends Component {
     constructor(props) {
@@ -26,6 +29,10 @@ class SignIn extends Component {
             this.props.history.replace('',null) 
             this.props.history.replace(`/products`)
             console.log("paso por aca")
+            ReactDOM.render(     
+                <App />,
+                document.getElementById('root')        
+              );
             console.log(this.props)
             logcontrol = true
         })

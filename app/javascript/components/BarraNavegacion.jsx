@@ -22,7 +22,10 @@ import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import PersonIcon from '@material-ui/icons/Person';
 import { useEffect, useState } from "react";
-import GlobalVariable from './GlobalVariable'
+import GlobalVariable from './GlobalVariable';
+import App from './App';
+import ReactDOM from 'react-dom';
+import jwtDecode from 'jwt-decode';
  
 
 const useStyles = makeStyles((theme) => ({
@@ -112,6 +115,7 @@ export default function PrimarySearchAppBar(props) {
  
   const history = useHistory();
   const [visibility_control, setVisibilityControl] = useState(false);
+  const [visibility_control_logout, setVisibilityControlLogOut] = useState(false);
 
   useEffect(() => {    
     visibility_button()
@@ -119,24 +123,30 @@ export default function PrimarySearchAppBar(props) {
 
   const visibility_button = () => {
     let jwt=window.localStorage.getItem('jwt')
-    let visibility_log = false
+    let visibility_log = true
+    console.log("Entra a visibility button")
+
 
 
     try {
+      console.log("Entra por try")
       let result = jwtDecode(jwt)
-      visibility_log = true
     } catch (error) {
+      console.log("Error en logueo")
+      visibility_log = false
     }
-    if (visibility_log === true) {
-      console.log("Verdadero")
-      console.log(visibility_log)
 
+    console.log('visibility_log')
+    console.log(visibility_log)
+    if (visibility_log === true) {
+      console.log("Logueado. Esconder boton de Sign")
       setVisibilityControl('hidden'); // (B)
+      setVisibilityControlLogOut('visible')
     }
     else{
-      console.log("Falso")
-      console.log(visibility_log)
+      console.log("No logueado. Esconder boton de Logout")
       setVisibilityControl('visible'); // (B)
+      setVisibilityControlLogOut('hidden')
     }
     
   };
@@ -175,6 +185,11 @@ export default function PrimarySearchAppBar(props) {
     localStorage.removeItem('jwt')
     history.push("/signin")
     visibility_button()
+
+    ReactDOM.render(     
+      <App />,
+      document.getElementById('root')        
+    );
 
     
   }
@@ -245,12 +260,10 @@ export default function PrimarySearchAppBar(props) {
 
   return (
     
-   
+    
     
     <div className={classes.grow}>
      {console.log("Se renderiza Appbar")}
-     {console.log('logcontrol')}
-     {console.log(logcontrol)}
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -273,7 +286,7 @@ export default function PrimarySearchAppBar(props) {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
 
-          {console.log('Visibility')}
+          {console.log('Visibilidad:')}
           {console.log(visibility_control)}
           <Link className = {classes.linkbutton} to="/Signup"  style={{visibility: visibility_control}} >
               <Button color="inherit" className = {classes.buttonfont} >Signup</Button>
@@ -289,15 +302,10 @@ export default function PrimarySearchAppBar(props) {
               <Button color="inherit" className = {classes.buttonfont} >Signin</Button>
             </Link>
      
-            <IconButton aria-label="delete" onClick={()=>handleLogout()}>
+            <IconButton aria-label="delete" onClick={()=>handleLogout()} style={{visibility: visibility_control_logout}} >
                 <BlockIcon />
             </IconButton>
          
-
-         
-          
-
-
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge color="secondary">
                 <PersonIcon />

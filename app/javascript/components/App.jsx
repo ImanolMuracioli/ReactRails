@@ -12,7 +12,7 @@ import SignUp from './SignUp';
 
 import jwtDecode from 'jwt-decode';
 
-console.log('Se renderiza App')
+
 
 import {HashRouter as Router, Route, NavLink, Switch} from 'react-router-dom'
 let jwt=window.localStorage.getItem('jwt')
@@ -35,13 +35,13 @@ class App extends Component {
 
   render() {
    
-    
+    console.log('Se renderiza App')
     
     return (
       <div className="App">
         <Router>
           <div className="container">
-            <BarraNavegacion path_signin= '/signin' path_signup= '/signup' path={this.props}/>
+              <BarraNavegacion path_signin= '/signin' path_signup= '/signup' path={this.props}/>
             <Main />
           </div>
         </Router>

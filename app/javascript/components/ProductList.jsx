@@ -45,9 +45,9 @@ class ProductList extends Component {
     let jwt=window.localStorage.getItem('jwt')
     try {
     let result = jwtDecode(jwt)
-    console.log(result)  
+    /**console.log(result) **/
     } catch (error) {
-      console.log('Error de autenticación, por favor iniciar sesión')  
+      /**console.log('Error de autenticación, por favor iniciar sesión')**/
       this.props.history.push('/signin')
     }
     fetch('api/v1/products')    
@@ -78,15 +78,13 @@ class ProductList extends Component {
         return item
       }else{
 
-        if(item.name.toString().includes(this.state.busqueda)){
+        if((item.name.toString().toLowerCase().normalize('NFD').replace(/[\u00C0-\u00FF]/g, '')).includes(this.state.busqueda.toString().toLowerCase().normalize('NFD').replace(/[\u00C0-\u00FF]/g, ''))){
           return item
         }
       }
     }
     )
 
-    console.log("search")
-    console.log(search)
     this.setState({products: search})
   }
 
@@ -95,6 +93,7 @@ class ProductList extends Component {
 
   render() {
 
+    /**console.log('Se renderiza ProductList')**/
     return (
 
       
